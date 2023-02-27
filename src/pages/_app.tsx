@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { globalCss, NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import useDarkMode from 'use-dark-mode';
+import { SSRProvider } from 'react-aria';
 
 import { darkTheme, lightTheme } from '@/themes';
 
@@ -16,18 +17,20 @@ const App = ({ Component, pageProps }: AppProps) => {
     const darkMode = useDarkMode(false);
 
     return (
-        <NextThemesProvider
-            defaultTheme="system"
-            attribute="class"
-            value={{
-                light: lightTheme.className,
-                dark: darkTheme.className,
-            }}
-        >
-            <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
-                <Component {...pageProps} />
-            </NextUIProvider>
-        </NextThemesProvider>
+        <SSRProvider>
+            <NextThemesProvider
+                defaultTheme="system"
+                attribute="class"
+                value={{
+                    light: lightTheme.className,
+                    dark: darkTheme.className,
+                }}
+            >
+                <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
+                    <Component {...pageProps} />
+                </NextUIProvider>
+            </NextThemesProvider>
+        </SSRProvider>
     );
 };
 

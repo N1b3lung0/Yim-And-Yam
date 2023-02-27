@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import { CustomNavbar } from '@/components/ui';
@@ -13,6 +12,9 @@ export const Layout: FC<Props> = ({ children, title }) => {
     const [origin, setOrigin] = useState('');
 
     useEffect(() => setOrigin(window.location.origin), []);
+    if (!origin) {
+        return null;
+    }
 
     return (
         <>

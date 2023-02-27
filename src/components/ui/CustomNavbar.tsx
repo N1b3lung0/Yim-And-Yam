@@ -6,6 +6,7 @@ export const CustomNavbar = () => {
 
     const darkMode = useDarkMode(false);
     const { type, isDark } = useTheme();
+
     return (
         <Navbar isBordered variant="floating">
             <Navbar.Toggle showIn="sm" />
